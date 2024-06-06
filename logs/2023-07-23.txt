@@ -1,0 +1,17 @@
+[23-Jul-2023 14:23:37 Europe/Berlin] Uncaught exception: 'Exception' with message: 'No route matched.'
+Stack trace: #0 C:\xampp\htdocs\MVC\public\index.php(27): Core\Router->dispatch('favicon.ico')
+#1 {main}
+Thrown in 'C:\xampp\htdocs\MVC\Core\Router.php' on line 161
+[23-Jul-2023 14:46:32 Europe/Berlin] Uncaught exception: 'PDOException' with message: 'SQLSTATE[42S02]: Base table or view not found: 1146 Table 'mvclogin.posts' doesn't exist'
+Stack trace: #0 C:\xampp\htdocs\RegAndLoginSystemPHPMVC\App\Models\Post.php(26): PDO->query('SELECT id, titl...')
+#1 C:\xampp\htdocs\RegAndLoginSystemPHPMVC\App\Controllers\Posts.php(24): App\Models\Post::getAll()
+#2 [internal function]: App\Controllers\Posts->indexAction()
+#3 C:\xampp\htdocs\RegAndLoginSystemPHPMVC\Core\Controller.php(40): call_user_func_array(Array, Array)
+#4 C:\xampp\htdocs\RegAndLoginSystemPHPMVC\Core\Router.php(145): Core\Controller->__call('index', Array)
+#5 C:\xampp\htdocs\RegAndLoginSystemPHPMVC\public\index.php(27): Core\Router->dispatch('posts/index')
+#6 {main}
+Thrown in 'C:\xampp\htdocs\RegAndLoginSystemPHPMVC\App\Models\Post.php' on line 26
+[23-Jul-2023 14:50:45 Europe/Berlin] Uncaught exception: 'Exception' with message: 'Controller class App\Controllers\Signup not found'
+Stack trace: #0 C:\xampp\htdocs\RegAndLoginSystemPHPMVC\public\index.php(27): Core\Router->dispatch('signup/new')
+#1 {main}
+Thrown in 'C:\xampp\htdocs\RegAndLoginSystemPHPMVC\Core\Router.php' on line 156
