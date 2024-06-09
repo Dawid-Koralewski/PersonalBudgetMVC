@@ -1,0 +1,33 @@
+[28-Feb-2024 16:03:25 Europe/Berlin] Uncaught exception: 'PDOException' with message: 'SQLSTATE[HY000] [1045] Access denied for user 'mvcuser'@'localhost' (using password: YES)'
+Stack trace: #0 C:\xampp\htdocs\RegAndLoginSystemPHPMVC\Core\Model.php(35): PDO->__construct('mysql:\r\n       ...', 'mvcuser', Object(SensitiveParameterValue))
+#1 C:\xampp\htdocs\RegAndLoginSystemPHPMVC\App\Models\User.php(206): Core\Model::getDB()
+#2 C:\xampp\htdocs\RegAndLoginSystemPHPMVC\App\Models\User.php(228): App\Models\User::findByEmail('d@d.com')
+#3 C:\xampp\htdocs\RegAndLoginSystemPHPMVC\App\Controllers\Login.php(60): App\Models\User::authenticate('d@d.com', 'secret')
+#4 [internal function]: App\Controllers\Login->createAction()
+#5 C:\xampp\htdocs\RegAndLoginSystemPHPMVC\Core\Controller.php(43): call_user_func_array(Array, Array)
+#6 C:\xampp\htdocs\RegAndLoginSystemPHPMVC\Core\Router.php(145): Core\Controller->__call('create', Array)
+#7 C:\xampp\htdocs\RegAndLoginSystemPHPMVC\public\index.php(40): Core\Router->dispatch('login/create')
+#8 {main}
+Thrown in 'C:\xampp\htdocs\RegAndLoginSystemPHPMVC\Core\Model.php' on line 35
+[28-Feb-2024 16:04:40 Europe/Berlin] Uncaught exception: 'PDOException' with message: 'SQLSTATE[HY000] [1045] Access denied for user 'mvcuser'@'localhost' (using password: YES)'
+Stack trace: #0 C:\xampp\htdocs\RegAndLoginSystemPHPMVC\Core\Model.php(35): PDO->__construct('mysql:\r\n       ...', 'mvcuser', Object(SensitiveParameterValue))
+#1 C:\xampp\htdocs\RegAndLoginSystemPHPMVC\App\Models\User.php(206): Core\Model::getDB()
+#2 C:\xampp\htdocs\RegAndLoginSystemPHPMVC\App\Models\User.php(191): App\Models\User::findByEmail('f@f.com')
+#3 C:\xampp\htdocs\RegAndLoginSystemPHPMVC\App\Controllers\Account.php(46): App\Models\User::emailExists('f@f.com')
+#4 [internal function]: App\Controllers\Account->validateEmailAction()
+#5 C:\xampp\htdocs\RegAndLoginSystemPHPMVC\Core\Controller.php(43): call_user_func_array(Array, Array)
+#6 C:\xampp\htdocs\RegAndLoginSystemPHPMVC\Core\Router.php(145): Core\Controller->__call('validateEmail', Array)
+#7 C:\xampp\htdocs\RegAndLoginSystemPHPMVC\public\index.php(40): Core\Router->dispatch('account/validat...')
+#8 {main}
+Thrown in 'C:\xampp\htdocs\RegAndLoginSystemPHPMVC\Core\Model.php' on line 35
+[28-Feb-2024 16:06:03 Europe/Berlin] Uncaught exception: 'PDOException' with message: 'SQLSTATE[HY000] [1045] Access denied for user 'mvcuser'@'localhost' (using password: YES)'
+Stack trace: #0 C:\xampp\htdocs\RegAndLoginSystemPHPMVC\Core\Model.php(35): PDO->__construct('mysql:\r\n       ...', 'mvcuser', Object(SensitiveParameterValue))
+#1 C:\xampp\htdocs\RegAndLoginSystemPHPMVC\App\Models\User.php(206): Core\Model::getDB()
+#2 C:\xampp\htdocs\RegAndLoginSystemPHPMVC\App\Models\User.php(191): App\Models\User::findByEmail('f@f.com')
+#3 C:\xampp\htdocs\RegAndLoginSystemPHPMVC\App\Controllers\Account.php(46): App\Models\User::emailExists('f@f.com')
+#4 [internal function]: App\Controllers\Account->validateEmailAction()
+#5 C:\xampp\htdocs\RegAndLoginSystemPHPMVC\Core\Controller.php(43): call_user_func_array(Array, Array)
+#6 C:\xampp\htdocs\RegAndLoginSystemPHPMVC\Core\Router.php(145): Core\Controller->__call('validateEmail', Array)
+#7 C:\xampp\htdocs\RegAndLoginSystemPHPMVC\public\index.php(40): Core\Router->dispatch('account/validat...')
+#8 {main}
+Thrown in 'C:\xampp\htdocs\RegAndLoginSystemPHPMVC\Core\Model.php' on line 35

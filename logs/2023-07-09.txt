@@ -1,0 +1,32 @@
+[09-Jul-2023 17:42:00 Europe/Berlin] PHP Fatal error:  Uncaught TypeError: Unsupported operand types: string / string in C:\xampp\htdocs\MVC\Core\Error.php:59
+Stack trace:
+#0 [internal function]: Core\Error::exceptionHandler(Object(Exception))
+#1 {main}
+  thrown in C:\xampp\htdocs\MVC\Core\Error.php on line 59
+[09-Jul-2023 17:42:03 Europe/Berlin] PHP Fatal error:  Uncaught TypeError: Unsupported operand types: string / string in C:\xampp\htdocs\MVC\Core\Error.php:59
+Stack trace:
+#0 [internal function]: Core\Error::exceptionHandler(Object(Exception))
+#1 {main}
+  thrown in C:\xampp\htdocs\MVC\Core\Error.php on line 59
+[09-Jul-2023 17:42:03 Europe/Berlin] PHP Fatal error:  Uncaught TypeError: Unsupported operand types: string / string in C:\xampp\htdocs\MVC\Core\Error.php:59
+Stack trace:
+#0 [internal function]: Core\Error::exceptionHandler(Object(Exception))
+#1 {main}
+  thrown in C:\xampp\htdocs\MVC\Core\Error.php on line 59
+[09-Jul-2023 17:42:23 Europe/Berlin] Uncaught exception: 'Exception' with message: 'No route matched.'
+Stack trace: #0 C:\xampp\htdocs\MVC\public\index.php(27): Core\Router->dispatch('products')
+#1 {main}
+Thrown in 'C:\xampp\htdocs\MVC\Core\Router.php' on line 161
+[09-Jul-2023 17:42:23 Europe/Berlin] Uncaught exception: 'Exception' with message: 'No route matched.'
+Stack trace: #0 C:\xampp\htdocs\MVC\public\index.php(27): Core\Router->dispatch('favicon.ico')
+#1 {main}
+Thrown in 'C:\xampp\htdocs\MVC\Core\Router.php' on line 161
+[09-Jul-2023 17:55:01 Europe/Berlin] Uncaught exception: 'Exception' with message: 'No route matched.'
+Stack trace: #0 C:\xampp\htdocs\MVC\public\index.php(27): Core\Router->dispatch('products')
+#1 {main}
+Thrown in 'C:\xampp\htdocs\MVC\Core\Router.php' on line 161
+[09-Jul-2023 17:55:22 Europe/Berlin] Uncaught exception: 'Exception' with message: 'Method neeAction not found in controller App\Controllers\Posts'
+Stack trace: #0 C:\xampp\htdocs\MVC\Core\Router.php(145): Core\Controller->__call('nee', Array)
+#1 C:\xampp\htdocs\MVC\public\index.php(27): Core\Router->dispatch('posts/nee')
+#2 {main}
+Thrown in 'C:\xampp\htdocs\MVC\Core\Controller.php' on line 46
