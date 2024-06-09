@@ -1,0 +1,186 @@
+{% extends "base.html" %}
+
+{% block title %}Balance{% endblock %}
+
+{% block body %}
+
+    <h1>Balance</h1>
+
+    <div class="date-container">
+        <form>
+          <div class="input-area input-group mb-3">
+            <label for="exampleInputDate" class="form-label">Date range: </label>
+            <div class="input-area-container">
+              <select class="form-select" aria-label="Default select example">
+                <option selected>Please select</option>
+                <option value="1">Current month</option>
+                <option value="2">Last month</option>
+                <option value="3">Current year</option>
+                <option value="4">Select from calendar</option>
+              </select>
+            </div>
+          </div>
+        </form>
+      </div>
+    
+      <div class="balance-container container-fluid">
+        <div class="row">
+          <div class="col-lg-9 col-md-6 col-sm-9 mx-auto">
+            <h2>Balance</h2>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-9 col-md-6 col-sm-9 mx-auto">
+            <table class="table align-middle table-bordered table-striped table-dark">
+              <thead>
+                <tr>
+                  <th class="">Income</th>
+                  <th class="">Expense</th>
+                  <th class="">Balance</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="td-even">0.00</td>
+                  <td class="td-even">0.00</td>
+                  <td class="td-even">0.00</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>      
+        </div>
+        
+        <div class="row">
+          <div class="col-lg-9 col-md-6 col-sm-9 mx-auto">
+            <h2>Incomes</h2>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-9 col-md-6 col-sm-9 mx-auto">
+            <table class="table align-middle table-bordered table-striped table-dark">
+              <thead>
+                <tr>
+                  <th class="th-odd">Category</th>
+                  <th class="th-even">Amount</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Wynagrodzenie</td>
+                  <td class="td-even">0.00</td>
+                </tr>
+                <tr>
+                  <td>Odsetki bankowe</td>
+                  <td class="td-even">0.00</td>
+                </tr>  
+                <tr>
+                  <td>Sprzedaż na allegro</td>
+                  <td class="td-even">0.00</td>
+                </tr> 
+                <tr>
+                  <td>Inne</td>
+                  <td class="td-even">0.00</td>
+                </tr>       
+                <tr>
+                  <td class="td-sum">Razem</td>
+                  <td class="td-sum td-even">0.00</td>
+                </tr>    
+              </tbody>
+            </table>
+          </div>      
+        </div>
+    
+        <div class="row">
+          <div class="col-lg-9 col-md-6 col-sm-9 mx-auto">
+            <h2>Expenses</h2>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-9 col-md-6 col-sm-9 mx-auto">
+            <table class="table align-middle table-bordered table-striped table-dark">
+              <thead>
+                <tr>
+                  <th class="th-odd">Category</th>
+                  <th class="th-even">Amount</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Jedzenie</td>
+                  <td class="td-even">0.00</td>
+                </tr>
+                <tr>
+                  <td>Mieszkanie</td>
+                  <td class="td-even">0.00</td>
+                </tr>  
+                <tr>
+                  <td>Transport</td>
+                  <td class="td-even">0.00</td>
+                </tr> 
+                <tr>
+                  <td>Telekomunikacja</td>
+                  <td class="td-even">0.00</td>
+                </tr>
+                <tr>
+                  <td>Opieka zdrowotna</td>
+                  <td class="td-even">0.00</td>
+                </tr> 
+                <tr>
+                  <td>Ubranie</td>
+                  <td class="td-even">0.00</td>
+                </tr> 
+                <tr>
+                  <td>Higiena</td>
+                  <td class="td-even">0.00</td>
+                </tr> 
+                <tr>
+                  <td>Dzieci</td>
+                  <td class="td-even">0.00</td>
+                </tr> 
+                <tr>
+                  <td>Rozrywka</td>
+                  <td class="td-even">0.00</td>
+                </tr> 
+                <tr>
+                  <td>Wycieczka</td>
+                  <td class="td-even">0.00</td>
+                </tr> 
+                <tr>
+                  <td>Szkolenia</td>
+                  <td class="td-even">0.00</td>
+                </tr> 
+                <tr>
+                  <td>Książki</td>
+                  <td class="td-even">0.00</td>
+                </tr> 
+                <tr>
+                  <td>Oszczędności</td>
+                  <td class="td-even">0.00</td>
+                </tr> 
+                <tr>
+                  <td>Na złotą jesień, czyli emeryturę</td>
+                  <td class="td-even">0.00</td>
+                </tr> 
+                <tr>
+                  <td>Spłata długów</td>
+                  <td class="td-even">0.00</td>
+                </tr> 
+                <tr>
+                  <td>Darowizna</td>
+                  <td class="td-even">0.00</td>
+                </tr> 
+                <tr>
+                  <td>Inne wydatki</td>
+                  <td class="td-even">0.00</td>
+                </tr>        
+                <tr>
+                  <td class="td-sum">Razem</td>
+                  <td class="td-sum td-even">0.00</td>
+                </tr>    
+              </tbody>
+            </table>
+          </div>      
+        </div>
+      </div>
+      
+{%endblock %}

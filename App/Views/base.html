@@ -1,21 +1,60 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}{% endblock %}</title>
+
+        <!-- Font Awesome -->
+        <script src="https://kit.fontawesome.com/43124feaf5.js" crossorigin="anonymous"></script>
+        
+        <!-- Bootstrap -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous"></script>
+
+        <!-- Internal Styles -->
         <link rel="stylesheet" href="/css/styles.css">
     </head>
 
     <body>
 
-        <nav>
-            <ul>
-                <li><a href="/">Home</a></li>
-                {% if current_user %}
-                    <li><a href="/profile/show">Profile</a></li>
-                    <li><a href="/logout">Log out</a></li>
-                {% endif %}
-            </ul>
+        <nav class="navbar navbar-expand-lg">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="/">Personal Budget</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mb-2 mb-lg-0 ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/">Home</a>
+                    </li>
+                    {% if current_user %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/expense/add">Add expense</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/balance/show">Balance</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/profile/show">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout">Log out</a>
+                    </li>
+
+                    {% else %}
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/signup/new">Sign Up</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login">Login</a>
+                    </li>
+
+                    {% endif %}
+                </ul>
+                </div>
+            </div>
         </nav>
 
         {% for message in flash_messages %}
@@ -30,8 +69,12 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
         
-        {% block footer %}
-        {% endblock %}
+        <footer>
+            <p>2023 Personal Budget</p>
+            <a href="https://www.freepik.com/free-vector/digital-money-transfer-technology-background_4025865.htm#query=finance%20background&position=35&from_view=keyword&track=ais">Backgroud Image by starline</a> on Freepik
+            {% block footer %}
+            {% endblock %}
+        </footer>
     </body>
 
 </html>
