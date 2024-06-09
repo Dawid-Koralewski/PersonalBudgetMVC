@@ -1,4 +1,0 @@
-[10-Jul-2023 13:58:18 Europe/Berlin] Uncaught exception: 'Exception' with message: 'No route matched.'
-Stack trace: #0 C:\xampp\htdocs\MVC\public\index.php(27): Core\Router->dispatch('favicon.ico')
-#1 {main}
-Thrown in 'C:\xampp\htdocs\MVC\Core\Router.php' on line 161
