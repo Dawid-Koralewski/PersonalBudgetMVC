@@ -78,8 +78,6 @@ use \App\Flash;
      {
        Flash::addMessage("Expense successfully added!");
        $this->redirect('/ExpenseManager/add');
-       var_dump("tu juz nie?");
-       return 0;
      }
      else
      {
