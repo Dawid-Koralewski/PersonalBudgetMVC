@@ -156,8 +156,6 @@ use \App\Flash;
             
             $stmt = $db->prepare($sql);
 
-            var_dump($this->user_id);
-
             $stmt->bindValue(':user_id', $this->user_id, PDO::PARAM_INT);
             $stmt->bindValue(':category', $this->category, PDO::PARAM_STR);
             $stmt->bindValue(':paymentMethod', $this->paymentMethod, PDO::PARAM_STR);

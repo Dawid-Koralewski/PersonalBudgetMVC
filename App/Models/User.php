@@ -168,10 +168,11 @@ use \App\Flash;
                     return false;
                 }
 
-                // if (assignDefaultPaymentMethodsToNewUser() == 0)
-                // {
-                //     $this->errors[] = 'Error occured when system tried to assign default payment methods to the new user. Please try again. If it does not help, contact technical support.';
-                // }
+                if ($this->assignDefaultPaymentMethodsToNewUser() == 0)
+                {
+                    $this->errors[] = 'Error occured when system tried to assign default payment methods to the new user. Please try again. If it does not help, contact technical support.';
+                    return false;
+                }
 
             }
             else
@@ -613,6 +614,15 @@ use \App\Flash;
            */
            private function assignDefaultPaymentMethodsToNewUser()
            {
+            $sql = 'INSERT INTO payment_methods_assigned_to_users (user_id, name)
+                    SELECT :user_id, name FROM payment_methods_default';
+    
+            $db = static::getDB();
+    
+            $stmt = $db->prepare($sql);
 
+            $stmt->bindValue(':user_id', $this->id, PDO::PARAM_INT);
+
+            return $stmt->execute();
            }
  }

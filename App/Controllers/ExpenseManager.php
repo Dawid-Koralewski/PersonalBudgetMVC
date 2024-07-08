@@ -77,7 +77,9 @@ use \App\Flash;
      if ($expense->save())
      {
        Flash::addMessage("Expense successfully added!");
-       $this->redirect('/ExpenseManager/add.html');
+       $this->redirect('/ExpenseManager/add');
+       var_dump("tu juz nie?");
+       return 0;
      }
      else
      {
