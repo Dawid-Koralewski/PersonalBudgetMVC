@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use \Core\View;
+use \App\Models\Balance;
 
 /**
  * Login controller
@@ -10,7 +11,7 @@ use \Core\View;
  * PHP version 8.2.4
  */
 
- class Balance extends \Core\Controller
+ class BalanceManager extends \Core\Controller
  {
    /**
     * Before filter
@@ -36,13 +37,19 @@ use \Core\View;
      }
    
     /**
-     * Show the login page
+     * Show the balance page
      * 
      * @return void
      */
 
-     public function showAction()
+     public function showBalanceAction()
      {
-        View::renderTemplate('Balance/show.html');
+
+         $balance = new Balance();
+
+         View::renderTemplate('/BalanceManager/showBalance.html', [
+         'expenses' => $balance->expenses,
+         'totalAmountOfExpenses' => $balance->totalAmountOfExpenses
+       ]);
      }
  }

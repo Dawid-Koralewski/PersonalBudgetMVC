@@ -87,8 +87,8 @@ use \App\Flash;
         foreach ($data as $key => $value)
         {
             $this->$key = $value;
-            $this->user_id = $_SESSION['user_id'];
         }
+        $this->user_id = $_SESSION['user_id'];
      }
 
     /**
@@ -245,85 +245,4 @@ use \App\Flash;
 
         return $result['id'];
       }
-
-
-
-     
-
-        // /**
-        //  * Find a user model by ID
-        //  * 
-        //  * @param string $id The user ID
-        //  * 
-        //  * @return mixed User object if found, false otherwise
-        //  */
-
-        //  public static function findByID($id)
-        //  {
-        //     $sql = 'SELECT * FROM users WHERE id = :id';
-
-        //     $db = static::getDB();
-        //     $stmt = $db->prepare($sql);
-        //     $stmt->bindValue(':id', $id, PDO::PARAM_INT);
-    
-        //     $stmt->setFetchMode(PDO::FETCH_CLASS, get_called_class());
-   
-        //     $stmt->execute();
-    
-        //     return $stmt->fetch();
-        //  }
-
-        //   /** 
-        //    * Update user's profile
-        //    * 
-        //    * @param array $data Data from the edit profile form
-        //    * 
-        //    * @return boolead True if data was updated, false otherwise
-        //    */
-
-        //    public function updateProfile($data)
-        //    {
-        //     $this->name = $data['name'];
-        //     $this->email = $data['email'];
-
-        //     // Only validate and update the password if a value was provided
-        //     if ($data['password'] != '')
-        //     {
-        //         $this->password = $data['password'];
-        //     }
-
-        //     $this->validate();
-
-        //     if (empty($this->errors))
-        //     {
-        //         $sql = 'UPDATE users
-        //                 SET name = :name,
-        //                     email = :email';
-
-        //         if (isset($this->password))
-        //         {
-        //             $sql .= ', password_hash = :password_hash';
-        //         }
-                
-        //         $sql .= "\nWHERE id = :id";
-
-        //         $db = static::getDB();
-        //         $stmt = $db->prepare($sql);
-
-        //         $stmt->bindValue(':name', $this->name, PDO::PARAM_STR);
-        //         $stmt->bindValue(':email', $this->email, PDO::PARAM_STR);
-        //         $stmt->bindValue(':id', $this->id, PDO::PARAM_INT);
-
-        //         if (isset($this->password))
-        //         {
-        //             $password_hash = password_hash($this->password, PASSWORD_DEFAULT);
-        //             $stmt->bindValue(':password_hash', $password_hash, PDO::PARAM_STR);
-        //         }
-
-        //         return $stmt->execute();
-        //     }
-
-        //     return false;
-
-        //    }
  }
