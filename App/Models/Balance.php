@@ -29,10 +29,22 @@ use \App\Models\Expense;
     public $expenses;
 
     /**
-     * Total amount of expenses
+     * Income categories
+     * @var array 
+     */
+    public $incomes;
+
+    /**
+     * Total value of expenses
      * @var double
      */
     public $totalAmountOfExpenses;
+
+    /**
+     * Total value of incomes
+     * @var double
+     */
+    public $totalAmountOfIncomes;
 
     /**
      * Error messages
@@ -59,7 +71,9 @@ use \App\Models\Expense;
         }
         $this->user_id = $_SESSION['user_id'];
         $this->expenses = $this->getExpensesForCurrentUser();
+        $this->incomes = $this->getIncomesForCurrentUser();
         $this->totalAmountOfExpenses = $this->getTotalAmountOfExpensesForCurrentUser();
+        $this->totalAmountOfIncomes = $this->getTotalAmountOfIncomesForCurrentUser();
      }
 
     /**
@@ -95,6 +109,51 @@ use \App\Models\Expense;
     private function getTotalAmountOfExpensesForCurrentUser()
     {
         $sql = 'SELECT SUM(amount) as sum FROM expenses WHERE user_id = :user_id';
+
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':user_id', $_SESSION['user_id'], PDO::PARAM_INT);
+
+        $stmt->execute();
+        
+        $result = $stmt->fetch();
+
+        return $result['sum'];
+    }
+
+    /**
+     * Get incomes for current user
+     * 
+     * @param
+     * 
+     * @return double Incomes grouped by categories
+     */
+
+     private function getIncomesForCurrentUser()
+      {
+        $sql = 'SELECT income_category_assigned_to_user_id, SUM(amount) as sum FROM incomes WHERE user_id = :user_id GROUP BY income_category_assigned_to_user_id';
+
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':user_id', $_SESSION['user_id'], PDO::PARAM_INT);
+ 
+        $stmt->setFetchMode(PDO::FETCH_GROUP);
+
+        $stmt->execute();
+
+        return $stmt->fetchAll();
+      }
+
+    /**
+     * Get total amount of incomes for current user
+     * 
+     * @param
+     * 
+     * @return double Total amount of incomes for current user
+     */
+    private function getTotalAmountOfIncomesForCurrentUser()
+    {
+        $sql = 'SELECT SUM(amount) as sum FROM incomes WHERE user_id = :user_id';
 
         $db = static::getDB();
         $stmt = $db->prepare($sql);
