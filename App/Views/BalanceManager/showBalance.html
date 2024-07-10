@@ -105,77 +105,15 @@
                 </tr>
               </thead>
               <tbody>
+                {% for expense in expenses %}
                 <tr>
-                  <td>Jedzenie</td>
-                  <td class="td-even">0.00</td>
-                </tr>
-                <tr>
-                  <td>Mieszkanie</td>
-                  <td class="td-even">0.00</td>
-                </tr>  
-                <tr>
-                  <td>Transport</td>
-                  <td class="td-even">0.00</td>
+                  <td>{{ expense.expense_category_assigned_to_user_id }}</td>
+                  <td class="td-even">{{ expense.sum }}</td>
                 </tr> 
-                <tr>
-                  <td>Telekomunikacja</td>
-                  <td class="td-even">0.00</td>
-                </tr>
-                <tr>
-                  <td>Opieka zdrowotna</td>
-                  <td class="td-even">0.00</td>
-                </tr> 
-                <tr>
-                  <td>Ubranie</td>
-                  <td class="td-even">0.00</td>
-                </tr> 
-                <tr>
-                  <td>Higiena</td>
-                  <td class="td-even">0.00</td>
-                </tr> 
-                <tr>
-                  <td>Dzieci</td>
-                  <td class="td-even">0.00</td>
-                </tr> 
-                <tr>
-                  <td>Rozrywka</td>
-                  <td class="td-even">0.00</td>
-                </tr> 
-                <tr>
-                  <td>Wycieczka</td>
-                  <td class="td-even">0.00</td>
-                </tr> 
-                <tr>
-                  <td>Szkolenia</td>
-                  <td class="td-even">0.00</td>
-                </tr> 
-                <tr>
-                  <td>Książki</td>
-                  <td class="td-even">0.00</td>
-                </tr> 
-                <tr>
-                  <td>Oszczędności</td>
-                  <td class="td-even">0.00</td>
-                </tr> 
-                <tr>
-                  <td>Na złotą jesień, czyli emeryturę</td>
-                  <td class="td-even">0.00</td>
-                </tr> 
-                <tr>
-                  <td>Spłata długów</td>
-                  <td class="td-even">0.00</td>
-                </tr> 
-                <tr>
-                  <td>Darowizna</td>
-                  <td class="td-even">0.00</td>
-                </tr> 
-                <tr>
-                  <td>Inne wydatki</td>
-                  <td class="td-even">0.00</td>
-                </tr>        
+                {% endfor %}   
                 <tr>
                   <td class="td-sum">Razem</td>
-                  <td class="td-sum td-even">0.00</td>
+                  <td class="td-sum td-even">{{ totalAmountOfExpenses }}</td>
                 </tr>    
               </tbody>
             </table>

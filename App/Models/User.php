@@ -174,6 +174,12 @@ use \App\Flash;
                     return false;
                 }
 
+                if ($this->assignDefaultIncomeCategoriesToNewUser() == 0)
+                {
+                    $this->errors[] = 'Error occured when system tried to assign default income categories to the new user. Please try again. If it does not help, contact technical support.';
+                    return false;
+                }
+
             }
             else
             {
@@ -616,6 +622,26 @@ use \App\Flash;
            {
             $sql = 'INSERT INTO payment_methods_assigned_to_users (user_id, name)
                     SELECT :user_id, name FROM payment_methods_default';
+    
+            $db = static::getDB();
+    
+            $stmt = $db->prepare($sql);
+
+            $stmt->bindValue(':user_id', $this->id, PDO::PARAM_INT);
+
+            return $stmt->execute();
+           }
+
+          /** 
+           * Assign default income categories to newly created user
+           * 
+           * @return boolead True if default expense categories were assigned, false otherwise
+           */
+
+           private function assignDefaultIncomeCategoriesToNewUser()
+           {
+            $sql = 'INSERT INTO incomes_category_assigned_to_users (user_id, name)
+                    SELECT :user_id, name FROM incomes_category_default';
     
             $db = static::getDB();
     

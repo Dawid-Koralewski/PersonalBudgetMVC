@@ -10,57 +10,51 @@ use \App\Flash;
 
 
 /**
- * Expense model
+ * Income model
  * 
  * PHP version 8.2.4
  */
 
- class Expense extends \Core\Model
+ class Income extends \Core\Model
  {
     /**
-     * Expense ID
+     * Income ID
      * @var int 
      */
     public $id;
 
     /**
-     * User ID, which expense is assigned to
+     * User ID, which income is assigned to
      * @var int 
      */
     public $user_id;
 
     /**
-     * Expense category ID
+     * Income category ID
      * @var string
      */
     public $category;
 
     /**
-     * Expense payment method
-     * @var string
-     */
-    public $paymentMethod;
-
-    /**
-     * Expense amount
+     * Income amount
      * @var float
      */
     public $amount;
 
     /**
-     * Expense date
+     * Income date
      * @var string
      */
     public $date;
 
     /**
-     * Expense date in DateTime format
+     * Income date in DateTime format
      * @var DateTime
      */
     public $dateInDateTimeFormat;
 
     /**
-     * Expense comment
+     * Income comment
      * @var string
      */
     public $comment;
@@ -92,39 +86,16 @@ use \App\Flash;
      }
 
     /**
-     * Get expense categories by userID
+     * Get income categories by userID
      * 
      * @param
      * 
-     * @return mixed Expense category/ies array if found, false otherwise
+     * @return mixed income category/ies array if found, false otherwise
      */
 
      public static function getCategoriesForCurrentUser()
      {
-       $sql = 'SELECT * FROM expenses_category_assigned_to_users WHERE user_id = :user_id';
-
-       $db = static::getDB();
-       $stmt = $db->prepare($sql);
-       $stmt->bindValue(':user_id', $_SESSION['user_id'], PDO::PARAM_INT);
-
-       $stmt->setFetchMode(PDO::FETCH_GROUP);
-
-       $stmt->execute();
-
-       return $stmt->fetchAll();
-     }
-
-    /**
-     * Get expense payment methods by userID
-     * 
-     * @param
-     * 
-     * @return mixed Expense payment method/s array if found, false otherwise
-     */
-
-     public static function getPaymentMethodsForCurrentUser()
-     {
-       $sql = 'SELECT * FROM payment_methods_assigned_to_users WHERE user_id = :user_id';
+       $sql = 'SELECT * FROM incomes_category_assigned_to_users WHERE user_id = :user_id';
 
        $db = static::getDB();
        $stmt = $db->prepare($sql);
@@ -138,7 +109,7 @@ use \App\Flash;
      }
 
     /** 
-     * Save ther expense model with the current property values
+     * Save ther income model with the current property values
      * 
      * @return true if execution was successful, false otherwise
      */
@@ -149,19 +120,17 @@ use \App\Flash;
 
         if (empty($this->errors))
         {
-            $sql = 'INSERT INTO expenses (user_id, expense_category_assigned_to_user_id	, payment_method_assigned_to_user_id, amount, date_of_expense, expense_comment)
-                    VALUES (:user_id, :category, :paymentMethod, :amount, :date, :comment)';
+            $sql = 'INSERT INTO incomes (user_id, income_category_assigned_to_user_id	, amount, date_of_income, income_comment)
+                    VALUES (:user_id, :category, :amount, :date, :comment)';
             
-            $expenseCategoryId = $this->getExpenseCategoryId();
-            $paymentMethodId = $this->getPaymentMethodId();
+            $incomeCategoryId = $this->getIncomeCategoryId();
 
             $db = static::getDB();
             
             $stmt = $db->prepare($sql);
 
             $stmt->bindValue(':user_id', $this->user_id, PDO::PARAM_INT);
-            $stmt->bindValue(':category', $expenseCategoryId, PDO::PARAM_INT);
-            $stmt->bindValue(':paymentMethod', $paymentMethodId, PDO::PARAM_INT);
+            $stmt->bindValue(':category', $incomeCategoryId, PDO::PARAM_INT);
             $stmt->bindValue(':amount', $this->amount, PDO::PARAM_STR);
             $stmt->bindValue(':date', $this->date, PDO::PARAM_STR);
             $stmt->bindValue(':comment', $this->comment, PDO::PARAM_STR);
@@ -202,42 +171,19 @@ use \App\Flash;
 
 
      /**
-      * Returns expense category ID
+      * Returns income category ID
       *
-      * @return int ID of expense category
+      * @return int ID of income category
       */
 
-      private function getExpenseCategoryId()
+      private function getIncomeCategoryId()
       {
-        $sql = 'SELECT id FROM expenses_category_assigned_to_users WHERE user_id = :user_id AND name = :category';
+        $sql = 'SELECT id FROM incomes_category_assigned_to_users WHERE user_id = :user_id AND name = :category';
 
         $db = static::getDB();
         $stmt = $db->prepare($sql);
         $stmt->bindValue(':user_id', $_SESSION['user_id'], PDO::PARAM_INT);
         $stmt->bindValue(':category', $this->category, PDO::PARAM_STR);
- 
-        $stmt->execute();
- 
-        $result = $stmt->fetch();
-
-        return $result['id'];
-      }
-
-
-    /**
-      * Returns payment method ID
-      *
-      * @return int ID of expense category
-      */
-
-      private function getPaymentMethodId()
-      {
-        $sql = 'SELECT id FROM payment_methods_assigned_to_users WHERE user_id = :user_id AND name = :paymentMethod';
-
-        $db = static::getDB();
-        $stmt = $db->prepare($sql);
-        $stmt->bindValue(':user_id', $_SESSION['user_id'], PDO::PARAM_INT);
-        $stmt->bindValue(':paymentMethod', $this->paymentMethod, PDO::PARAM_STR);
  
         $stmt->execute();
  
