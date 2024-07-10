@@ -49,7 +49,9 @@ use \App\Models\Balance;
 
          View::renderTemplate('/BalanceManager/showBalance.html', [
          'expenses' => $balance->expenses,
-         'totalAmountOfExpenses' => $balance->totalAmountOfExpenses
+         'incomes' => $balance->incomes,
+         'totalAmountOfExpenses' => $balance->totalAmountOfExpenses,
+         'totalAmountOfIncomes' => $balance->totalAmountOfIncomes
        ]);
      }
  }

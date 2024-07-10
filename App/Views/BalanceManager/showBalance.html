@@ -34,16 +34,16 @@
             <table class="table align-middle table-bordered table-striped table-dark">
               <thead>
                 <tr>
-                  <th class="">Income</th>
-                  <th class="">Expense</th>
+                  <th class="">Incomes</th>
+                  <th class="">Expenses</th>
                   <th class="">Balance</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td class="td-even">0.00</td>
-                  <td class="td-even">0.00</td>
-                  <td class="td-even">0.00</td>
+                  <td class="td-even">{{ totalAmountOfIncomes }}</td>
+                  <td class="td-even">{{ totalAmountOfExpenses }}</td>
+                  <td class="td-even">{{ totalAmountOfIncomes- totalAmountOfExpenses }}</td>
                 </tr>
               </tbody>
             </table>
@@ -65,25 +65,15 @@
                 </tr>
               </thead>
               <tbody>
+                {% for income in incomes %}
                 <tr>
-                  <td>Wynagrodzenie</td>
-                  <td class="td-even">0.00</td>
-                </tr>
-                <tr>
-                  <td>Odsetki bankowe</td>
-                  <td class="td-even">0.00</td>
-                </tr>  
-                <tr>
-                  <td>Sprzedaż na allegro</td>
-                  <td class="td-even">0.00</td>
+                  <td>{{ income.income_category_assigned_to_user_id }}</td>
+                  <td class="td-even">{{ income.sum }}</td>
                 </tr> 
-                <tr>
-                  <td>Inne</td>
-                  <td class="td-even">0.00</td>
-                </tr>       
+                {% endfor %}       
                 <tr>
                   <td class="td-sum">Razem</td>
-                  <td class="td-sum td-even">0.00</td>
+                  <td class="td-sum td-even">{{ totalAmountOfIncomes }}</td>
                 </tr>    
               </tbody>
             </table>
