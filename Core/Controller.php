@@ -73,7 +73,7 @@ use \App\Flash;
        }
 
        /**
-        * Redurect to a different page
+        * Redirect to a different page
         * 
         * @param string $url The relative URL
         *

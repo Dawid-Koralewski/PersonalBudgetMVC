@@ -7,6 +7,8 @@ use \App\Mail;
 use \Core\View;
 use PDO;
 
+use \App\Flash;
+
 /**
  * User model
  * 
@@ -16,7 +18,7 @@ use PDO;
  class User extends \Core\Model
  {
     /**
-     * Username
+     * User ID
      * @var int 
      */
     public $id;
@@ -157,10 +159,35 @@ use PDO;
             $stmt->bindValue(':password_hash', $password_hash, PDO::PARAM_STR);
             $stmt->bindValue(':activation_hash', $hashed_token, PDO::PARAM_STR);
 
-            return $stmt->execute();
-        }
+            if ($stmt->execute())
+            {
+                $this->id = $db->lastInsertId();
+                if ($this->assignDefaultExpenseCategoriesToNewUser() == 0)
+                {
+                    $this->errors[] = 'Error occured when system tried to assign default expense categories to the new user. Please try again. If it does not help, contact technical support.';
+                    return false;
+                }
 
-        return false;
+                if ($this->assignDefaultPaymentMethodsToNewUser() == 0)
+                {
+                    $this->errors[] = 'Error occured when system tried to assign default payment methods to the new user. Please try again. If it does not help, contact technical support.';
+                    return false;
+                }
+
+                if ($this->assignDefaultIncomeCategoriesToNewUser() == 0)
+                {
+                    $this->errors[] = 'Error occured when system tried to assign default income categories to the new user. Please try again. If it does not help, contact technical support.';
+                    return false;
+                }
+
+            }
+            else
+            {
+                $this->errors[] = 'Error occured when system tried to save new user data in database. Please try again. If it does not help, contact technical support.';
+                return false;
+            }
+            return true;
+        }
      }
      
      /**
@@ -563,5 +590,65 @@ use PDO;
 
             return false;
 
+           }
+
+          /** 
+           * Assign default expense categories to newly created user
+           * 
+           * @return boolead True if default expense categories were assigned, false otherwise
+           */
+
+           private function assignDefaultExpenseCategoriesToNewUser()
+           {
+            $sql = 'INSERT INTO expenses_category_assigned_to_users (user_id, name)
+                    SELECT :user_id, name FROM expenses_category_default';
+    
+            $db = static::getDB();
+    
+            $stmt = $db->prepare($sql);
+
+            $stmt->bindValue(':user_id', $this->id, PDO::PARAM_INT);
+
+            return $stmt->execute();
+           }
+
+
+          /** 
+           * Assign default payment methods to newly created user
+           * 
+           * @return boolead True if default payment methods were assigned, false otherwise
+           */
+           private function assignDefaultPaymentMethodsToNewUser()
+           {
+            $sql = 'INSERT INTO payment_methods_assigned_to_users (user_id, name)
+                    SELECT :user_id, name FROM payment_methods_default';
+    
+            $db = static::getDB();
+    
+            $stmt = $db->prepare($sql);
+
+            $stmt->bindValue(':user_id', $this->id, PDO::PARAM_INT);
+
+            return $stmt->execute();
+           }
+
+          /** 
+           * Assign default income categories to newly created user
+           * 
+           * @return boolead True if default expense categories were assigned, false otherwise
+           */
+
+           private function assignDefaultIncomeCategoriesToNewUser()
+           {
+            $sql = 'INSERT INTO incomes_category_assigned_to_users (user_id, name)
+                    SELECT :user_id, name FROM incomes_category_default';
+    
+            $db = static::getDB();
+    
+            $stmt = $db->prepare($sql);
+
+            $stmt->bindValue(':user_id', $this->id, PDO::PARAM_INT);
+
+            return $stmt->execute();
            }
  }

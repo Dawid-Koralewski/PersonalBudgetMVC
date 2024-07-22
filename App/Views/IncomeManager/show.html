@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}Income{% endblock %}
+
+{% block body %}
+
+    <h1>Incomes</h1>
+
+    <a href="/incomeManager/add"><button>Add</button></a>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-10 col-md-10 col-sm-11 mx-auto">
+            <table class="table align-middle table-bordered table-striped table-dark">
+                <thead>
+                <tr>
+                    <th class="th-even">Comment</th>
+                    <th class="th-odd">Source of income</th>
+                    <th class="th-even">Amount</th>
+                    <th class="th-even">Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for income in incomes %}
+                <tr>
+                    <td>{{ income.income_comment }}</td>
+                    <td>{{ income.name }}</td>
+                    <td class="td-even">{{ income.amount }}</td>
+                    <td class="td-even">
+                        <form method="post" action="/incomeManager/edit"><button name="incomeID" value="{{ income.id }}">Edit</button></form>
+                        <form method="post" action="/incomeManager/delete"><button name="incomeID" value="{{ income.id }}">Delete</button></form>
+                    </td>
+                </tr> 
+                {% endfor %}    
+                </tbody>
+            </table>
+            </div>      
+      </div>
+    </div>
+
+{%endblock %}

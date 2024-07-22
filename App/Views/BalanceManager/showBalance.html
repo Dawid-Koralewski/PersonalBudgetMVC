@@ -1,0 +1,165 @@
+{% extends "base.html" %}
+
+{% block title %}Balance{% endblock %}
+
+{% block body %}
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+<script type="text/javascript">
+
+  
+
+  // Load google charts
+  google.charts.load('current', {'packages':['corechart']});
+  google.charts.setOnLoadCallback(drawChart);
+
+  // Draw the chart and set the chart values
+  function drawChart(test) {
+
+  var dataExpenses = new google.visualization.DataTable();
+  dataExpenses.addColumn('string', 'Expense Category');
+  dataExpenses.addColumn('number', 'Amount');
+
+  {% for expense in expenses %}
+  dataExpenses.addRow(['{{ expense.name }}', {{ expense.sum }}]);
+  {% endfor %} 
+
+  var dataIncomes = new google.visualization.DataTable();
+  dataIncomes.addColumn('string', 'Income Category');
+  dataIncomes.addColumn('number', 'Amount');
+
+  {% for income in incomes %}
+    dataIncomes.addRow(['{{ income.name }}', {{ income.sum }}]);
+  {% endfor %} 
+  
+    // Optional; add a title
+    var optionsExpenses = {'title':'Expenses'};
+  
+    // Display the chart inside the <div> element with id="piechartExpense"
+    var piechartExpenses = new google.visualization.PieChart(document.getElementById('piechartExpenses'));
+    piechartExpenses.draw(dataExpenses, optionsExpenses);
+
+    // Optional; add a title
+    var optionsIncomes = {'title':'Incomes'};    
+
+    // Display the chart inside the <div> element with id="piechartIncomes"
+      var piechartIncomes = new google.visualization.PieChart(document.getElementById('piechartIncomes'));
+      piechartIncomes.draw(dataIncomes, optionsIncomes);
+    
+  }
+  </script>
+
+      <div class="container-fluid">
+
+        <h1>Balance</h1>
+
+        <div id="date-selection">
+          <form method="post" class="row col-lg-12 col-md-12 col-sm-10" action="/balanceManager/showBalance" id="formSelectBalanceDates">
+            
+            <div>
+              <input type="date" id="balanceFromDate" name="balanceFromDate" value="{{ balanceFromDate }}">
+              <label for="balanceFromDate" class="form-label">From: </label>
+            </div>
+    
+            <div>
+              <input type="date" id="balanceUntilDate" name="balanceUntilDate" value="{{ balanceUntilDate }}">
+              <label for="balanceUntilDate" class="form-label">To: </label>
+            </div>
+    
+            <div>
+              <button type="submit">Select</button>
+            </div>
+          </form>
+        </div>
+
+        <div class="row">
+          <div id="piecharts" class="row col-lg-10 col-md-10 col-sm-11 mx-auto">
+            <div id="piechartExpenses" class="col-lg-5 col-md-5 col-sm-11 mx-auto"></div>
+            <div id="piechartIncomes" class="col-lg-5 col-md-5 col-sm-11 mx-auto"></div>
+          </div> 
+        </div>     
+
+        <div class="row">
+          <div class="col-lg-10 col-md-10 col-sm-11 mx-auto">
+            <table class="table align-middle table-bordered table-striped table-dark">
+              <thead>
+                <tr>
+                  <th class="">Incomes</th>
+                  <th class="">Expenses</th>
+                  <th class="">Balance</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="td-even">{{ totalAmountOfIncomes }}</td>
+                  <td class="td-even">{{ totalAmountOfExpenses }}</td>
+                  <td class="td-even">{{ totalAmountOfIncomes- totalAmountOfExpenses }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>      
+        </div>
+        
+        <div class="row">
+          <div class="col-lg-10 col-md-10 col-sm-11 mx-auto">
+            <h2>Incomes</h2>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-109 col-md-10 col-sm-11 mx-auto">
+            <table class="table align-middle table-bordered table-striped table-dark">
+              <thead>
+                <tr>
+                  <th class="th-odd">Category</th>
+                  <th class="th-even">Amount</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for income in incomes %}
+                <tr>
+                  <td>{{ income.name }}</td>
+                  <td class="td-even">{{ income.sum }}</td>
+                </tr> 
+                {% endfor %}       
+                <tr>
+                  <td class="td-sum">Razem</td>
+                  <td class="td-sum td-even">{{ totalAmountOfIncomes }}</td>
+                </tr>    
+              </tbody>
+            </table>
+          </div>      
+        </div>
+    
+        <div class="row">
+          <div class="col-lg-10 col-md-10 col-sm-11 mx-auto">
+            <h2>Expenses</h2>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-10 col-md-10 col-sm-11 mx-auto">
+            <table class="table align-middle table-bordered table-striped table-dark">
+              <thead>
+                <tr>
+                  <th class="th-odd">Category</th>
+                  <th class="th-even">Amount</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for expense in expenses %}
+                <tr>
+                  <td>{{ expense.name }}</td>
+                  <td class="td-even">{{ expense.sum }}</td>
+                </tr> 
+                {% endfor %}   
+                <tr>
+                  <td class="td-sum">Razem</td>
+                  <td class="td-sum td-even">{{ totalAmountOfExpenses }}</td>
+                </tr>    
+              </tbody>
+            </table>
+          </div>      
+        </div>
+      </div>
+      
+{%endblock %}
