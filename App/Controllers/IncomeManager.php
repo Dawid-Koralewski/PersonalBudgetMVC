@@ -41,14 +41,17 @@ use \App\Flash;
      }
    
     /**
-     * Show the add expense page
+     * Show the add income page
      * 
      * @return void
      */
 
      public function showAction()
      {
-        View::renderTemplate('IncomeManager/show.html');
+        $incomes = Income::getAllIncomes();
+        View::renderTemplate('IncomeManager/show.html', [
+          'incomes' => $incomes
+        ]);
      }
 
     public function addAction()
@@ -84,4 +87,51 @@ use \App\Flash;
        ]);
      }
     }
+
+    /**
+     * Delete income
+     * 
+     * @return void
+     */    
+
+     public function deleteAction()
+     {
+       income::deleteincome($_POST['incomeID']);
+       $this->redirect('/incomeManager/show');
+     }
+ 
+     /**
+      * Edit income
+      * 
+      * @return void
+      */    
+ 
+      public function editAction()
+      {
+       $income = income::getincomeByID($_POST['incomeID']);
+ 
+       $incomeCategories = income::getCategoriesForCurrentUser();
+ 
+        View::renderTemplate('/IncomeManager/edit.html', [
+          'income' => $income,
+          'incomeCategories' => $incomeCategories
+        ]);
+      }
+ 
+     /**
+      * Update income
+      * 
+      * @return void
+      */    
+ 
+      public function updateAction()
+      {
+         $income = new income($_POST);
+         if ($income->update())
+           Flash::addMessage("income updated succesfully");
+         else
+           Flash::addMessage("Fault when trying to update income, please try again.");
+ 
+         $this->redirect('/incomeManager/show');
+       }
  }

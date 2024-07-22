@@ -4,33 +4,84 @@
 
 {% block body %}
 
-    <h1>Balance</h1>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
-    <div class="date-container">
-        <form>
-          <div class="input-area input-group mb-3">
-            <label for="exampleInputDate" class="form-label">Date range: </label>
-            <div class="input-area-container">
-              <select class="form-select" aria-label="Default select example">
-                <option selected>Please select</option>
-                <option value="1">Current month</option>
-                <option value="2">Last month</option>
-                <option value="3">Current year</option>
-                <option value="4">Select from calendar</option>
-              </select>
-            </div>
-          </div>
-        </form>
-      </div>
+<script type="text/javascript">
+
+  
+
+  // Load google charts
+  google.charts.load('current', {'packages':['corechart']});
+  google.charts.setOnLoadCallback(drawChart);
+
+  // Draw the chart and set the chart values
+  function drawChart(test) {
+
+  var dataExpenses = new google.visualization.DataTable();
+  dataExpenses.addColumn('string', 'Expense Category');
+  dataExpenses.addColumn('number', 'Amount');
+
+  {% for expense in expenses %}
+  dataExpenses.addRow(['{{ expense.name }}', {{ expense.sum }}]);
+  {% endfor %} 
+
+  var dataIncomes = new google.visualization.DataTable();
+  dataIncomes.addColumn('string', 'Income Category');
+  dataIncomes.addColumn('number', 'Amount');
+
+  {% for income in incomes %}
+    dataIncomes.addRow(['{{ income.name }}', {{ income.sum }}]);
+  {% endfor %} 
+  
+    // Optional; add a title
+    var optionsExpenses = {'title':'Expenses'};
+  
+    // Display the chart inside the <div> element with id="piechartExpense"
+    var piechartExpenses = new google.visualization.PieChart(document.getElementById('piechartExpenses'));
+    piechartExpenses.draw(dataExpenses, optionsExpenses);
+
+    // Optional; add a title
+    var optionsIncomes = {'title':'Incomes'};    
+
+    // Display the chart inside the <div> element with id="piechartIncomes"
+      var piechartIncomes = new google.visualization.PieChart(document.getElementById('piechartIncomes'));
+      piechartIncomes.draw(dataIncomes, optionsIncomes);
     
-      <div class="balance-container container-fluid">
-        <div class="row">
-          <div class="col-lg-9 col-md-6 col-sm-9 mx-auto">
-            <h2>Balance</h2>
-          </div>
+  }
+  </script>
+
+      <div class="container-fluid">
+
+        <h1>Balance</h1>
+
+        <div id="date-selection">
+          <form method="post" class="row col-lg-12 col-md-12 col-sm-10" action="/balanceManager/showBalance" id="formSelectBalanceDates">
+            
+            <div>
+              <input type="date" id="balanceFromDate" name="balanceFromDate" value="{{ balanceFromDate }}">
+              <label for="balanceFromDate" class="form-label">From: </label>
+            </div>
+    
+            <div>
+              <input type="date" id="balanceUntilDate" name="balanceUntilDate" value="{{ balanceUntilDate }}">
+              <label for="balanceUntilDate" class="form-label">To: </label>
+            </div>
+    
+            <div>
+              <button type="submit">Select</button>
+            </div>
+          </form>
         </div>
+
         <div class="row">
-          <div class="col-lg-9 col-md-6 col-sm-9 mx-auto">
+          <div id="piecharts" class="row col-lg-10 col-md-10 col-sm-11 mx-auto">
+            <div id="piechartExpenses" class="col-lg-5 col-md-5 col-sm-11 mx-auto"></div>
+            <div id="piechartIncomes" class="col-lg-5 col-md-5 col-sm-11 mx-auto"></div>
+          </div> 
+        </div>     
+
+        <div class="row">
+          <div class="col-lg-10 col-md-10 col-sm-11 mx-auto">
             <table class="table align-middle table-bordered table-striped table-dark">
               <thead>
                 <tr>
@@ -51,12 +102,12 @@
         </div>
         
         <div class="row">
-          <div class="col-lg-9 col-md-6 col-sm-9 mx-auto">
+          <div class="col-lg-10 col-md-10 col-sm-11 mx-auto">
             <h2>Incomes</h2>
           </div>
         </div>
         <div class="row">
-          <div class="col-lg-9 col-md-6 col-sm-9 mx-auto">
+          <div class="col-lg-109 col-md-10 col-sm-11 mx-auto">
             <table class="table align-middle table-bordered table-striped table-dark">
               <thead>
                 <tr>
@@ -67,7 +118,7 @@
               <tbody>
                 {% for income in incomes %}
                 <tr>
-                  <td>{{ income.income_category_assigned_to_user_id }}</td>
+                  <td>{{ income.name }}</td>
                   <td class="td-even">{{ income.sum }}</td>
                 </tr> 
                 {% endfor %}       
@@ -81,12 +132,12 @@
         </div>
     
         <div class="row">
-          <div class="col-lg-9 col-md-6 col-sm-9 mx-auto">
+          <div class="col-lg-10 col-md-10 col-sm-11 mx-auto">
             <h2>Expenses</h2>
           </div>
         </div>
         <div class="row">
-          <div class="col-lg-9 col-md-6 col-sm-9 mx-auto">
+          <div class="col-lg-10 col-md-10 col-sm-11 mx-auto">
             <table class="table align-middle table-bordered table-striped table-dark">
               <thead>
                 <tr>
@@ -97,7 +148,7 @@
               <tbody>
                 {% for expense in expenses %}
                 <tr>
-                  <td>{{ expense.expense_category_assigned_to_user_id }}</td>
+                  <td>{{ expense.name }}</td>
                   <td class="td-even">{{ expense.sum }}</td>
                 </tr> 
                 {% endfor %}   

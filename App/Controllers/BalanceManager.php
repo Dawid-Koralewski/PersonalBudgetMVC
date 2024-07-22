@@ -11,7 +11,7 @@ use \App\Models\Balance;
  * PHP version 8.2.4
  */
 
- class BalanceManager extends \Core\Controller
+ class BalanceManager extends Authenticated
  {
    /**
     * Before filter
@@ -45,11 +45,20 @@ use \App\Models\Balance;
      public function showBalanceAction()
      {
 
-         $balance = new Balance();
+        if ($_POST != NULL)
+        {
+          $balance = new Balance($_POST);
+        }
+        else 
+        {
+          $balance = new Balance();
+        }
 
          View::renderTemplate('/BalanceManager/showBalance.html', [
          'expenses' => $balance->expenses,
          'incomes' => $balance->incomes,
+         'balanceFromDate' => $balance->balanceFromDate,
+         'balanceUntilDate' => $balance->balanceUntilDate,
          'totalAmountOfExpenses' => $balance->totalAmountOfExpenses,
          'totalAmountOfIncomes' => $balance->totalAmountOfIncomes
        ]);

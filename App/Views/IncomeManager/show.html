@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 
-{% block title %}Expense{% endblock %}
+{% block title %}Income{% endblock %}
 
 {% block body %}
 
-    <h1>Expenses</h1>
+    <h1>Incomes</h1>
 
-    <a href="/expenseManager/add"><button>Add</button></a>
+    <a href="/incomeManager/add"><button>Add</button></a>
 
     <div class="container-fluid">
         <div class="row">
@@ -15,20 +15,20 @@
                 <thead>
                 <tr>
                     <th class="th-even">Comment</th>
-                    <th class="th-odd">Expense category</th>
+                    <th class="th-odd">Source of income</th>
                     <th class="th-even">Amount</th>
                     <th class="th-even">Action</th>
                 </tr>
                 </thead>
                 <tbody>
-                {% for expense in expenses %}
+                {% for income in incomes %}
                 <tr>
-                    <td>{{ expense.expense_comment }}</td>
-                    <td>{{ expense.name }}</td>
-                    <td class="td-even">{{ expense.amount }}</td>
+                    <td>{{ income.income_comment }}</td>
+                    <td>{{ income.name }}</td>
+                    <td class="td-even">{{ income.amount }}</td>
                     <td class="td-even">
-                        <form method="post" action="/expenseManager/edit"><button name="expenseID" value="{{ expense.id }}">Edit</button></form>
-                        <form method="post" action="/expenseManager/delete"><button name="expenseID" value="{{ expense.id }}">Delete</button></form>
+                        <form method="post" action="/incomeManager/edit"><button name="incomeID" value="{{ income.id }}">Edit</button></form>
+                        <form method="post" action="/incomeManager/delete"><button name="incomeID" value="{{ income.id }}">Delete</button></form>
                     </td>
                 </tr> 
                 {% endfor %}    

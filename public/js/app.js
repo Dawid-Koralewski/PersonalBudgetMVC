@@ -20,5 +20,5 @@ function(value, element, param) {
 
     return true;
 },
-'Must contain at leasst one letter and one number'
+'Must contain at least one letter and one number'
 );

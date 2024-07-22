@@ -47,6 +47,18 @@ use \App\Models\Expense;
     public $totalAmountOfIncomes;
 
     /**
+     * Date until which balance data is pulled from database
+     * @var date
+     */
+    public $balanceUntilDate;
+
+    /**
+     * Date from which balance data is pulled from database
+     * @var date
+     */
+    public $balanceFromDate;
+
+    /**
      * Error messages
      * 
      * @var array
@@ -70,6 +82,13 @@ use \App\Models\Expense;
             $this->$key = $value;
         }
         $this->user_id = $_SESSION['user_id'];
+
+        if ($this->balanceUntilDate == NULL)
+          $this->balanceUntilDate = date('Y-m-d', time());
+
+        if ($this->balanceFromDate == NULL)
+          $this->balanceFromDate = date('Y-m-01', time());
+        
         $this->expenses = $this->getExpensesForCurrentUser();
         $this->incomes = $this->getIncomesForCurrentUser();
         $this->totalAmountOfExpenses = $this->getTotalAmountOfExpensesForCurrentUser();
@@ -86,12 +105,14 @@ use \App\Models\Expense;
 
      private function getExpensesForCurrentUser()
       {
-        $sql = 'SELECT expense_category_assigned_to_user_id, SUM(amount) as sum FROM expenses WHERE user_id = :user_id GROUP BY expense_category_assigned_to_user_id';
+        $sql = 'SELECT name, SUM(amount) as sum FROM expenses_category_assigned_to_users, expenses WHERE expense_category_assigned_to_user_id = expenses_category_assigned_to_users.id AND expenses.user_id = :user_id AND :balanceFromDate <= expenses.date_of_expense AND expenses.date_of_expense <= :balanceUntilDate GROUP BY expense_category_assigned_to_user_id';
 
         $db = static::getDB();
         $stmt = $db->prepare($sql);
         $stmt->bindValue(':user_id', $_SESSION['user_id'], PDO::PARAM_INT);
- 
+        $stmt->bindValue(':balanceFromDate', $this->balanceFromDate, PDO::PARAM_STR);
+        $stmt->bindValue(':balanceUntilDate', $this->balanceUntilDate, PDO::PARAM_STR);
+
         $stmt->setFetchMode(PDO::FETCH_GROUP);
 
         $stmt->execute();
@@ -108,11 +129,13 @@ use \App\Models\Expense;
      */
     private function getTotalAmountOfExpensesForCurrentUser()
     {
-        $sql = 'SELECT SUM(amount) as sum FROM expenses WHERE user_id = :user_id';
+        $sql = 'SELECT SUM(amount) as sum FROM expenses WHERE user_id = :user_id AND :balanceFromDate <= date_of_expense AND date_of_expense <= :balanceUntilDate';
 
         $db = static::getDB();
         $stmt = $db->prepare($sql);
         $stmt->bindValue(':user_id', $_SESSION['user_id'], PDO::PARAM_INT);
+        $stmt->bindValue(':balanceFromDate', $this->balanceFromDate, PDO::PARAM_STR);
+        $stmt->bindValue(':balanceUntilDate', $this->balanceUntilDate, PDO::PARAM_STR);
 
         $stmt->execute();
         
@@ -131,12 +154,14 @@ use \App\Models\Expense;
 
      private function getIncomesForCurrentUser()
       {
-        $sql = 'SELECT income_category_assigned_to_user_id, SUM(amount) as sum FROM incomes WHERE user_id = :user_id GROUP BY income_category_assigned_to_user_id';
+        $sql = 'SELECT name, SUM(amount) as sum FROM incomes_category_assigned_to_users, incomes WHERE income_category_assigned_to_user_id = incomes_category_assigned_to_users.id AND incomes.user_id = :user_id AND :balanceFromDate <= incomes.date_of_income AND incomes.date_of_income <= :balanceUntilDate GROUP BY income_category_assigned_to_user_id';
 
         $db = static::getDB();
         $stmt = $db->prepare($sql);
         $stmt->bindValue(':user_id', $_SESSION['user_id'], PDO::PARAM_INT);
- 
+        $stmt->bindValue(':balanceFromDate', $this->balanceFromDate, PDO::PARAM_STR);
+        $stmt->bindValue(':balanceUntilDate', $this->balanceUntilDate, PDO::PARAM_STR);
+
         $stmt->setFetchMode(PDO::FETCH_GROUP);
 
         $stmt->execute();
@@ -153,11 +178,13 @@ use \App\Models\Expense;
      */
     private function getTotalAmountOfIncomesForCurrentUser()
     {
-        $sql = 'SELECT SUM(amount) as sum FROM incomes WHERE user_id = :user_id';
+        $sql = 'SELECT SUM(amount) as sum FROM incomes WHERE user_id = :user_id AND :balanceFromDate <= date_of_income AND date_of_income <= :balanceUntilDate';
 
         $db = static::getDB();
         $stmt = $db->prepare($sql);
         $stmt->bindValue(':user_id', $_SESSION['user_id'], PDO::PARAM_INT);
+        $stmt->bindValue(':balanceFromDate', $this->balanceFromDate, PDO::PARAM_STR);
+        $stmt->bindValue(':balanceUntilDate', $this->balanceUntilDate, PDO::PARAM_STR);
 
         $stmt->execute();
         
