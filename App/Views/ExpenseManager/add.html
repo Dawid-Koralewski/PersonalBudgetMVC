@@ -17,6 +17,8 @@
     </ul>
     {% endif %}
 
+    <div class="main-container container-fluid">
+
     <form method="post" action="/expenseManager/create" id="formAddExpense">
         <div>
             <label for="expenseCategory">Category</label>
@@ -50,5 +52,6 @@
         <button type="submit">Add</button>
         
     </form>
+    </div>
 
 {%endblock %}

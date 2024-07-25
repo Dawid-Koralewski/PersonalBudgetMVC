@@ -81,21 +81,66 @@ td {
 }
 
 .content-container {
-    margin: auto;
-    padding-top: 7%;
-    text-align: right;
-    width: 400px;
+    margin-top: 2vh;
+    align-content: center;
 }
 
-.home-page-container {
-    padding: 7% 15%;
+.main-container p {
+    text-justify: inter-word;
     text-align: justify;
+    line-height: 1.4;
 }
 
-.content-container button {
+.main-container {
+    padding: 1vh 5%;
+    width: 60%;
+    background: rgba(50, 50, 200, 0.5);
+    border-radius: 50px;
+}
+
+.main-container a {
+    color: lightblue;
+}
+
+.main-container input {
+    width: calc(100% - 20px);
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.main-container select {
+    width: calc(100% - 20px);
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+#inputRememberMe {
+    width: 20px;
+}
+
+button {
+    margin: 5px 0;
+    background: #2196F3;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+button:hover {
+    background: #1e88e5;
+}
+
+/* .content-container button {
     width: 130px;
     margin-left: 5px;
-}
+} */
 
 
 /* Alerts */

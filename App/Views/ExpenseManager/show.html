@@ -4,14 +4,23 @@
 
 {% block body %}
 
-    <h1>Expenses</h1>
-
-    <a href="/expenseManager/add"><button>Add</button></a>
-
     <div class="container-fluid">
+        
+        <div class="row">
+            <div class="row col-lg-10 col-md-10 col-sm-11 mx-auto container-fluid">
+                <div class="col-lg-8 col-md-8 col-sm-8 float-left">
+                    <h2>Expenses</h2>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4">
+                    <a href="/expenseManager/add" class="float-end"><button>Add</button></a>
+                </div>
+            </div>
+
+        </div>
+        
         <div class="row">
             <div class="col-lg-10 col-md-10 col-sm-11 mx-auto">
-            <table class="table align-middle table-bordered table-striped table-dark">
+            <table class="table align-middle table-bordered table-striped table-primary">
                 <thead>
                 <tr>
                     <th class="th-even">Comment</th>
