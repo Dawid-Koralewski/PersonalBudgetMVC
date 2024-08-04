@@ -83,9 +83,12 @@ use \App\Models\Expense;
         }
         $this->user_id = $_SESSION['user_id'];
 
-        var_dump($_POST);
-        $this->balanceUntilDate = date('Y-m-d', time());
-        $this->balanceFromDate = date('Y-m-01', time());
+        if ($this->balanceUntilDate == NULL)
+          $this->balanceUntilDate = date('Y-m-d', time());
+
+        if ($this->balanceFromDate == NULL)
+          $this->balanceFromDate = date('Y-m-01', time());
+        
         $this->expenses = $this->getExpensesForCurrentUser();
         $this->incomes = $this->getIncomesForCurrentUser();
         $this->totalAmountOfExpenses = $this->getTotalAmountOfExpensesForCurrentUser();
@@ -102,7 +105,7 @@ use \App\Models\Expense;
 
      private function getExpensesForCurrentUser()
       {
-        $sql = 'SELECT expense_category_assigned_to_user_id, SUM(amount) as sum FROM expenses WHERE user_id = :user_id AND :balanceFromDate <= date_of_expense AND date_of_expense <= :balanceUntilDate GROUP BY expense_category_assigned_to_user_id';
+        $sql = 'SELECT name, SUM(amount) as sum FROM expenses_category_assigned_to_users, expenses WHERE expense_category_assigned_to_user_id = expenses_category_assigned_to_users.id AND expenses.user_id = :user_id AND :balanceFromDate <= expenses.date_of_expense AND expenses.date_of_expense <= :balanceUntilDate GROUP BY expense_category_assigned_to_user_id';
 
         $db = static::getDB();
         $stmt = $db->prepare($sql);
@@ -151,7 +154,7 @@ use \App\Models\Expense;
 
      private function getIncomesForCurrentUser()
       {
-        $sql = 'SELECT income_category_assigned_to_user_id, SUM(amount) as sum FROM incomes WHERE user_id = :user_id AND :balanceFromDate <= date_of_income AND date_of_income <= :balanceUntilDate GROUP BY income_category_assigned_to_user_id';
+        $sql = 'SELECT name, SUM(amount) as sum FROM incomes_category_assigned_to_users, incomes WHERE income_category_assigned_to_user_id = incomes_category_assigned_to_users.id AND incomes.user_id = :user_id AND :balanceFromDate <= incomes.date_of_income AND incomes.date_of_income <= :balanceUntilDate GROUP BY income_category_assigned_to_user_id';
 
         $db = static::getDB();
         $stmt = $db->prepare($sql);

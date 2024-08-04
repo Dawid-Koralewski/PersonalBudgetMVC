@@ -48,7 +48,10 @@ use \App\Flash;
 
      public function showAction()
      {
-        View::renderTemplate('ExpenseManager/show.html');
+        $expenses = Expense::getAllExpenses();
+        View::renderTemplate('ExpenseManager/show.html', [
+          'expenses' => $expenses
+        ]);
      }
 
     public function addAction()
@@ -88,4 +91,53 @@ use \App\Flash;
        ]);
      }
     }
+
+    /**
+     * Delete expense
+     * 
+     * @return void
+     */    
+
+    public function deleteAction()
+    {
+      Expense::deleteExpense($_POST['expenseID']);
+      $this->redirect('/ExpenseManager/show');
+    }
+
+    /**
+     * Edit expense
+     * 
+     * @return void
+     */    
+
+     public function editAction()
+     {
+      $expense = Expense::getExpenseByID($_POST['expenseID']);
+
+      $expenseCategories = Expense::getCategoriesForCurrentUser();
+      $expensePaymentMethods = Expense::getPaymentMethodsForCurrentUser();
+
+       View::renderTemplate('/ExpenseManager/edit.html', [
+         'expense' => $expense,
+         'expenseCategories' => $expenseCategories,
+         'expensePaymentMethods' => $expensePaymentMethods
+       ]);
+     }
+
+    /**
+     * Update expense
+     * 
+     * @return void
+     */    
+
+     public function updateAction()
+     {
+        $expense = new Expense($_POST);
+        if ($expense->update())
+          Flash::addMessage("Expense updated succesfully");
+        else
+          Flash::addMessage("Fault when trying to update expense, please try again.");
+
+        $this->redirect('/ExpenseManager/show');
+      }
  }

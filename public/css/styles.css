@@ -71,6 +71,9 @@ td {
     color: #F6F6F6;
 }
 
+
+/* Containers */
+
 .title-container {
     margin: auto;
     padding-top: 7%;
@@ -78,49 +81,64 @@ td {
 }
 
 .content-container {
-    margin: auto;
-    padding-top: 7%;
-    text-align: right;
-    width: 400px;
+    margin-top: 2vh;
+    align-content: center;
 }
 
-.date-container {
-    padding: 2%;
-    width: 370px;
-    float: right;
-    text-align: center;
-}
-
-.balance-container {
-    margin-top: 100px;
-}
-
-.home-page-container {
-    padding: 7% 15%;
+.main-container p {
+    text-justify: inter-word;
     text-align: justify;
+    line-height: 1.4;
 }
 
-.content-container button {
-    width: 130px;
-    margin-left: 5px;
+.main-container {
+    padding: 1vh 5%;
+    width: 60%;
+    background: rgba(50, 50, 200, 0.5);
+    border-radius: 50px;
 }
 
-.input-area label{
-    padding-top: 6px;
-    position: absolute;
-    left: 0;
+.main-container a {
+    color: rgb(251, 255, 0);
 }
 
-.input-area-container{
-    position: absolute;
-    right: 0;
-    width: 200px;
+.main-container input {
+    width: calc(100% - 20px);
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    outline: none;
+    transition: border-color 0.3s;
 }
 
-.input-area-container input, .input-area-container select {
-    text-align: right;
+.main-container select {
+    width: calc(100% - 20px);
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    outline: none;
+    transition: border-color 0.3s;
 }
 
+#inputRememberMe {
+    width: 20px;
+}
+
+button {
+    margin: 10px 0;
+    padding: 5px 10px;
+    background: #2196F3;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s;
+    border-radius: 10px;
+    max-height: 40px;
+}
+
+button:hover {
+    background: #1e88e5;
+}
 
 /* Alerts */
 
@@ -139,4 +157,47 @@ td {
 
 .alert-warning {
     background-color: #fcf8e3;
+}
+
+/* Balance */
+
+#date-selection label {
+    float: right;
+    padding-right: 10px;
+}
+
+#date-selection input {
+    float: right;
+}
+
+#date-selection button {
+    width: 80px;
+    height: 30px;
+    float: right;
+}
+
+/* Piecharts on balance page*/
+
+#piecharts > div{
+    min-height: 25vh;
+}
+
+#piecharts rect {
+    fill: none;
+}
+
+#piecharts text {
+    fill: white;
+}
+
+.main-container ul li input {
+    width: 70%;    
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+ul li button {
+    all: unset;
 }

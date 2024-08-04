@@ -4,8 +4,47 @@
 
 {% block body %}
 
-    <h1>Expenses</h1>
+    <div class="container-fluid">
+        
+        <div class="row">
+            <div class="row col-lg-10 col-md-10 col-sm-11 mx-auto container-fluid">
+                <div class="col-lg-8 col-md-8 col-sm-8 float-left">
+                    <h2>Expenses</h2>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4">
+                    <a href="/expenseManager/add" class="float-end"><button>Add</button></a>
+                </div>
+            </div>
 
-    <a href="/expenseManager/add"><button>Add</button></a>
+        </div>
+        
+        <div class="row">
+            <div class="col-lg-10 col-md-10 col-sm-11 mx-auto">
+            <table class="table align-middle table-bordered table-striped table-primary">
+                <thead>
+                <tr>
+                    <th class="th-even">Comment</th>
+                    <th class="th-odd">Expense category</th>
+                    <th class="th-even">Amount</th>
+                    <th class="th-even">Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for expense in expenses %}
+                <tr>
+                    <td>{{ expense.expense_comment }}</td>
+                    <td>{{ expense.name }}</td>
+                    <td class="td-even">{{ expense.amount }}</td>
+                    <td class="td-even">
+                        <form method="post" action="/expenseManager/edit"><button name="expenseID" value="{{ expense.id }}">Edit</button></form>
+                        <form method="post" action="/expenseManager/delete"><button name="expenseID" value="{{ expense.id }}">Delete</button></form>
+                    </td>
+                </tr> 
+                {% endfor %}    
+                </tbody>
+            </table>
+            </div>      
+      </div>
+    </div>
 
 {%endblock %}

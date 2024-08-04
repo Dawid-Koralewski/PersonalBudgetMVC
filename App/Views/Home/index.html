@@ -4,19 +4,35 @@
 
 {% block body %}
 
-    <h1>Welcome</h1>
-  
-    {% if current_user %}
-        Hello {{ current_user.name }}.
-    {% else %}
-        <a href="/signup/new">Sing up</a> or <a href="/login">Log in</a>.
-    {% endif %}
+    <div class="main-container container-fluid">
 
-    <div class="home-page-container container-fluid">
-        <div class="row">
-            <div class="col-md-6 mx-auto">
-            </div>
-        </div>
+                <h2>Welcome to Personal Budget!</h1>
+
+                <p>Take control of your finances with BudgetMaster, your all-in-one personal budget management tool. Our user-friendly platform helps you track expenses, set savings goals, and manage your income with ease. Whether you're looking to save for a big purchase, pay off debt, or simply keep an eye on your spending, BudgetMaster is here to help you every step of the way.</p>
+
+                    <h3>Key Features:</h3>
+                    
+                    <ul>
+
+                    </ul>
+                    <li>
+                        <strong>Expense Tracking:</strong> Record and categorize your spending to see where your money goes.
+                    </li>
+
+                    <li>
+                        <strong>Income Management:</strong> Keep track of all your income sources in one place.
+                    </li>
+                    
+
+                    <p>Join our community of savvy savers and start your journey to financial freedom today!</p>
+                    
+                    {% if current_user %}
+                    <!-- Hello {{ current_user.name }} -->
+                    {% else %}
+                    <p><strong>Get Started Now!</strong>
+                        <a href="/signup/new">Sing up</a> or <a href="/login">Log in</a> to your Personal Budget account and take the first step towards a healthier financial future.</p>
+                    {% endif %}
+
     </div>
     
 

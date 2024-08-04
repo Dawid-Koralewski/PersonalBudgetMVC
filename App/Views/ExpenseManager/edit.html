@@ -19,20 +19,20 @@
 
     <div class="main-container container-fluid">
 
-    <form method="post" action="/expenseManager/create" id="formAddExpense">
+    <form method="post" action="/expenseManager/update" id="formUpdateExpense">
         <div>
             <label for="expenseCategory">Category</label>
-            <select id="expenseCategory" list="expenseCategories" name="category" value="{{ expense.category }}" required/>
+            <select id="expenseCategory" list="expenseCategories" name="category" value="{{ expense.category_name }}" required/>
                 {% for expenseCategory in expenseCategories %}
-                <option value="{{ expenseCategory.name }}">{{ expenseCategory.name }}</option>
+                <option value="{{ expenseCategory.name }}"{% if expenseCategory.name == expense.category_name %} selected {% endif %}>{{ expenseCategory.name }}</option>
                 {% endfor %}
             </select>                    
         </div>
         <div>
             <label for="expensePaymentMethod">Payment method</label>
-            <select id="expensePaymentMethod" list="expensePaymentMethods" name="paymentMethod" value="{{ expense.paymentMethod }}" required/>
+            <select id="expensePaymentMethod" list="expensePaymentMethods" name="paymentMethod" value="{{ expense.payment_method_name }}" required/>
                 {% for expensePaymentMethod in expensePaymentMethods %}
-                <option value="{{ expensePaymentMethod.name }}">{{ expensePaymentMethod.name }}</option>
+                <option value="{{ expensePaymentMethod.name }}"{% if expensePaymentMethod.name == expense.payment_method_name %} selected {% endif %}>{{ expensePaymentMethod.name }}</option>
                 {% endfor %}
             </select>                    
         </div>
@@ -42,14 +42,14 @@
         </div>
         <div>
             <label for="expenseDate">Date</label>
-            <input id="expenseDate" type="date" name="date" value="{{ expense.date }}" required/>
+            <input id="expenseDate" type="date" name="date" value="{{ expense.date_of_expense }}" required/>
         </div>
         <div>
             <label for="expenseComment">Comment</label>
-            <input id="expenseComment" name="comment" value="{{ expense.comment }}" />
+            <input id="expenseComment" name="comment" value="{{ expense.expense_comment }}" />
         </div>
 
-        <button type="submit">Add</button>
+        <button name="id" value="{{ expense.id }}" type="submit">Update</button>
         
     </form>
     </div>
