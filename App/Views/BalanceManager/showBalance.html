@@ -7,17 +7,16 @@
     <h1>Balance</h1>
 
     <div class="date-container">
-        <form>
+        <form method="post" action="/balanceManager/showBalance" id="formSelectBalanceDates">
           <div class="input-area input-group mb-3">
             <label for="exampleInputDate" class="form-label">Date range: </label>
             <div class="input-area-container">
-              <select class="form-select" aria-label="Default select example">
-                <option selected>Please select</option>
+              <select name="balanceDates" class="form-select" aria-label="Default select example">
                 <option value="1">Current month</option>
                 <option value="2">Last month</option>
                 <option value="3">Current year</option>
-                <option value="4">Select from calendar</option>
               </select>
+              <button type="submit">Select</button>
             </div>
           </div>
         </form>
