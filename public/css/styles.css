@@ -99,7 +99,7 @@ td {
 }
 
 .main-container a {
-    color: lightblue;
+    color: rgb(251, 255, 0);
 }
 
 .main-container input {
@@ -125,23 +125,20 @@ td {
 }
 
 button {
-    margin: 5px 0;
+    margin: 10px 0;
+    padding: 5px 10px;
     background: #2196F3;
     color: #fff;
     border: none;
     cursor: pointer;
     transition: background 0.3s;
+    border-radius: 10px;
+    max-height: 40px;
 }
 
 button:hover {
     background: #1e88e5;
 }
-
-/* .content-container button {
-    width: 130px;
-    margin-left: 5px;
-} */
-
 
 /* Alerts */
 
@@ -191,4 +188,16 @@ button:hover {
 
 #piecharts text {
     fill: white;
+}
+
+.main-container ul li input {
+    width: 70%;    
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+ul li button {
+    all: unset;
 }

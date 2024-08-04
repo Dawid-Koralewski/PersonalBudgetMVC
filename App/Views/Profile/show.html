@@ -4,6 +4,7 @@
 
 {% block body %}
 
+<div class="main-container container-fluid">
     <h1>Profile</h1>
 
     <dl>
@@ -12,7 +13,151 @@
         <dt>email</dt>
         <dd>{{ user.email }}</dd>
     </dl>
+    <button><a href="/profile/edit">Edit</a></button>
 
-    <a href="/profile/edit">Edit</a>
+    <div class="row">
+        <div class="col-lg-5 col-md-5 col-sm-11 mx-auto">
+            <h5>Expense categories:</h5>
+            <ul class="row">
+                {% for category in expenseCategories %}
+            
+                    <li>
+                        {% if expenseCategoryToEditID == category.id %}
+
+                        <span class="col-lg-12 col-md-12 col-sm-12">
+                            <form method="post" action="/profile/updateExpenseCategory">
+                                <input class="col-lg-9 col-md-9 col-sm-9" type="text" name="expenseCategoryName" value="{{ category.name }}">
+                                <span class="pt-2 icon float-end">
+                                    <button class="float-end" name="expenseCategoryID" value="{{ category.id }}">&#128190</button>
+                                </span>
+                            </form>
+                        </span>
+
+                        {% else %}
+
+                        <span class="col-lg-10 col-md-10 col-sm-10">
+                            {{ category.name }}
+                        </span>
+
+                            {% if category.name == "Another" %}
+
+                            {% else %}
+
+                            <span class="icon float-end col-lg-1 col-md-1 col-sm-1 px-1">
+                                <form method="post" action="/profile/deleteExpenseCategory">
+                                    <button name="expenseCategoryID" value="{{ category.id }}">&#128465</button>
+                                </form>
+                            </span>
+
+                            <span class="icon float-end col-lg-1 col-md-1 col-sm-1">
+                                <form method="post" action="/profile/editExpenseCategory">
+                                    <button name="expenseCategoryID" value="{{ category.id }}">&#128397</button>
+                                </form>
+                            </span>
+
+                            {% endif %}
+
+                        {% endif %}
+                    </li>
+                
+                {% endfor %}
+                
+                {% if addingExpenseCategory %}
+
+                <li>
+                    <span class="col-lg-12 col-md-12 col-sm-12">
+                        <form method="post" action="/profile/saveNewExpenseCategory">
+                            <input class="col-lg-9 col-md-9 col-sm-9" type="text" name="newExpenseCategoryName">
+                            <span class="pt-2 icon float-end">
+                                <button class="float-end">&#128190</button>
+                            </span>
+                        </form>
+                    </span>
+                </li>
+
+                {% endif %}
+
+                </ul>
+
+                {% if addingExpenseCategory == 0 %}
+
+                <form method="post" action="/profile/addExpenseCategory">
+                    <button>Add new</button>
+                </form>
+
+                {% endif %}
+        </div>
+        <div class="col-lg-5 col-md-5 col-sm-11 mx-auto">
+            <h5>Income categories:</h5>
+            <ul class="row">
+                {% for category in incomeCategories %}
+            
+                <li>
+                    {% if incomeCategoryToEditID == category.id %}
+
+                    <span class="col-lg-12 col-md-12 col-sm-12">
+                        <form method="post" action="/profile/updateIncomeCategory">
+                            <input class="col-lg-9 col-md-9 col-sm-9" type="text" name="incomeCategoryName" value="{{ category.name }}">
+                            <span class="pt-2 icon float-end">
+                                <button class="float-end" name="incomeCategoryID" value="{{ category.id }}">&#128190</button>
+                            </span>
+                        </form>
+                    </span>
+
+                    {% else %}
+
+                    <span class="col-lg-10 col-md-10 col-sm-10">
+                        {{ category.name }}
+                    </span>
+
+                        {% if category.name == "Another" %}
+
+                        {% else %}
+
+                        <span class="icon float-end col-lg-1 col-md-1 col-sm-1 px-1">
+                            <form method="post" action="/profile/deleteIncomeCategory">
+                                <button name="incomeCategoryID" value="{{ category.id }}">&#128465</button>
+                            </form>
+                        </span>
+
+                        <span class="icon float-end col-lg-1 col-md-1 col-sm-1">
+                            <form method="post" action="/profile/editIncomeCategory">
+                                <button name="incomeCategoryID" value="{{ category.id }}">&#128397</button>
+                            </form>
+                        </span>
+
+                        {% endif %}
+
+                    {% endif %}
+                </li>
+                {% endfor %}  
+
+                {% if addingIncomeCategory %}
+
+                <li>
+                    <span class="col-lg-12 col-md-12 col-sm-12">
+                        <form method="post" action="/profile/saveNewIncomeCategory">
+                            <input class="col-lg-9 col-md-9 col-sm-9" type="text" name="newIncomeCategoryName">
+                            <span class="pt-2 icon float-end">
+                                <button class="float-end">&#128190</button>
+                            </span>
+                        </form>
+                    </span>
+                </li>
+
+                {% endif %}
+
+                </ul>
+
+                {% if addingIncomeCategory == 0 %}
+
+                <form method="post" action="/profile/addIncomeCategory">
+                    <button>Add new</button>
+                </form>
+
+                {% endif %}
+        </div>
+    </div>
+</div>
 
 {%endblock %}

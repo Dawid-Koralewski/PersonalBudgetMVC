@@ -253,7 +253,7 @@ use \App\Flash;
         return $result;
       }
 
-/** 
+    /** 
      * Update the income with model with the current property values
      * 
      * @return true if execution was successful, false otherwise
@@ -285,5 +285,73 @@ use \App\Flash;
         }
 
         return false;
+     }
+
+    /** 
+     * Update income category name
+     * 
+     * @return true if execution was successful, false otherwise
+     */
+
+     public static function updateIncomeCategoryName($id, $name)
+     {
+       $sql = 'UPDATE incomes_category_assigned_to_users
+               SET name = :name
+               WHERE id = :id';
+
+       $db = static::getDB();
+       $stmt = $db->prepare($sql);
+       $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+       $stmt->bindValue(':name', $name, PDO::PARAM_STR);
+
+       return $stmt->execute();;
+     }
+
+    /** 
+     * Delete income category for this user
+     * 
+     * @return true if execution was successful, false otherwise
+     */
+
+     public static function deleteIncomeCategory($id)
+     {
+      $sql = 'UPDATE incomes
+              SET income_category_assigned_to_user_id = (SELECT id FROM `incomes_category_assigned_to_users` WHERE user_id = :user_id AND name = "Another")
+              WHERE income_category_assigned_to_user_id = :id';
+
+      $db = static::getDB();
+      $stmt = $db->prepare($sql);
+      $stmt->bindValue(':user_id', $_SESSION['user_id'], PDO::PARAM_INT);
+      $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+
+      $stmt->execute();
+
+      $sql = 'DELETE FROM incomes_category_assigned_to_users
+               WHERE id = :id';
+
+       $db = static::getDB();
+       $stmt = $db->prepare($sql);
+       $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+
+       return $stmt->execute();;
+     }
+
+    /** 
+     * Save new income category for this user
+     * 
+     * @return true if execution was successful, false otherwise
+     */
+
+     public static function saveNewIncomeCategory($name)
+     {
+       $sql = 'INSERT INTO incomes_category_assigned_to_users (user_id, name)
+               VALUES (:user_id, :name)';
+
+       $db = static::getDB();
+       $stmt = $db->prepare($sql);
+       $stmt->bindValue(':user_id', $_SESSION['user_id'], PDO::PARAM_STR);
+       $stmt->bindValue(':name', $name, PDO::PARAM_STR);
+
+       return $stmt->execute();;
      }
  }

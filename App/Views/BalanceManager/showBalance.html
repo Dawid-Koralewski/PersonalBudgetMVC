@@ -31,7 +31,7 @@
 
   {% for income in incomes %}
     dataIncomes.addRow(['{{ income.name }}', {{ income.sum }}]);
-  {% endfor %} 
+  {% endfor %}
   
     // Optional; add a title
     var optionsExpenses = {'title':'Expenses'};
@@ -73,10 +73,14 @@
           </form>
         </div>
 
-        <div class="row">
+        <div class="row">          
           <div id="piecharts" class="row col-lg-10 col-md-10 col-sm-11 mx-auto">
+            {% if expenses|length <= 0 %}
+            <h4>No data to show in chosen period</h4>
+            {% else %}
             <div id="piechartExpenses" class="col-lg-5 col-md-5 col-sm-11 mx-auto"></div>
             <div id="piechartIncomes" class="col-lg-5 col-md-5 col-sm-11 mx-auto"></div>
+            {% endif %}
           </div> 
         </div>     
 
@@ -123,7 +127,7 @@
                 </tr> 
                 {% endfor %}       
                 <tr>
-                  <td class="td-sum">Razem</td>
+                  <td class="td-sum">Total</td>
                   <td class="td-sum td-even">{{ totalAmountOfIncomes }}</td>
                 </tr>    
               </tbody>
@@ -153,7 +157,7 @@
                 </tr> 
                 {% endfor %}   
                 <tr>
-                  <td class="td-sum">Razem</td>
+                  <td class="td-sum">Total</td>
                   <td class="td-sum td-even">{{ totalAmountOfExpenses }}</td>
                 </tr>    
               </tbody>
